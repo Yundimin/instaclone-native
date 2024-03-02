@@ -57,7 +57,7 @@ export default function CreateAccount({ navigation }) {
   };
 
   const onValid = (data) => {
-    if (!loading) {
+      if (!loading) {
       createAccountMutation({
         variables: {
           ...data,
