@@ -14,6 +14,7 @@ export default function LoggedOutNav() {
         headerTitle: false,
         headerTransparent: true,
         headerTintColor: "white",
+        headerTitleStyle: { display: 'none' },
       }}
     >
       <Stack.Screen
