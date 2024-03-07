@@ -5,11 +5,10 @@ import * as Font from "expo-font";
 import LoggedOutNav from "./navigators/LoggedOutNav";
 import { NavigationContainer } from "@react-navigation/native";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import client, { isLoggedInVar, tokenVar } from "./apollo";
+import client, { isLoggedInVar, tokenVar, cache } from "./apollo";
 import LoggedInNav from "./navigators/LoggedInNav";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
+import { AsyncStorageWrapper, persistCache } from "apollo3-cache-persist";
 
 // 버그 시 강의 15.15 확인
 export default function App() {
@@ -27,10 +26,14 @@ export default function App() {
 
   const preload = async () => {
     const token = await AsyncStorage.getItem("token");
-        if (token) {
+    if (token) {
       isLoggedInVar(true);
       tokenVar(token);
     }
+    await persistCache({
+      cache,
+      storage: new AsyncStorageWrapper(AsyncStorage),
+    });
     return preloadAssets();
   };
   useEffect(() => {
