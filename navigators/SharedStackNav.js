@@ -23,7 +23,7 @@ export default function SharedStackNav({ screenName }) {
           shadowColor: "rgba(255, 255, 255, 0.3)",
           backgroundColor: "black",
         },
-        headerMode: "screen",
+        headerShown: "screen",
       }}
     >
       {screenName === "Feed" ? (
