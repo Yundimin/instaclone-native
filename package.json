@@ -35,7 +35,9 @@
     "react-native-screens": "~3.29.0",
     "react-native-tab-view": "^3.5.2",
     "styled-components": "^6.1.8",
-    "expo-media-library": "~15.9.1"
+    "expo-media-library": "~15.9.1",
+    "expo-camera": "~14.1.1",
+    "@react-native-community/slider": "4.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
