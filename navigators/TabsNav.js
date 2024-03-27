@@ -7,7 +7,7 @@ import useMe from "../hooks/useMe";
 
 const Tabs = createBottomTabNavigator();
 
-export default function LoggedInNav() {
+export default function TabsNav() {
   const { data } = useMe();
   return (
     <Tabs.Navigator
