@@ -43,6 +43,14 @@ const HeaderRightText = styled.Text`
 export default function SelectPhoto({ navigation }) {
   const [ok, setOk] = useState(false);
   const [photos, setPhotos] = useState([]);
+
+  const [photoLocal, setPhotoLocal] = useState("");
+  const choosePhoto = async (id) => {
+    const assetInfo = await MediaLibrary.getAssetInfoAsync(id);
+    setPhotoLocal(assetInfo.localUri);
+    setChosenPhoto(assetInfo.uri);
+  };
+
   const [chosenPhoto, setChosenPhoto] = useState("");
   const getPhotos = async () => {
     const { assets: photos } = await MediaLibrary.getAssetsAsync();
@@ -71,13 +79,13 @@ export default function SelectPhoto({ navigation }) {
     navigation.setOptions({
       headerRight: HeaderRight,
     });
-  }, [chosenPhoto]);
+  }, [chosenPhoto, photoLocal]);
 
   const HeaderRight = () => (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("UploadForm", {
-          file: chosenPhoto,
+          file: photoLocal,
         })
       }
     >
@@ -86,11 +94,9 @@ export default function SelectPhoto({ navigation }) {
   );
   const numColumns = 4;
   const { width } = useWindowDimensions();
-  const choosePhoto = (uri) => {
-    setChosenPhoto(uri);
-  };
+
   const renderItem = ({ item: photo }) => (
-    <ImageContainer onPress={() => choosePhoto(photo.uri)}>
+    <ImageContainer onPress={() => choosePhoto(photo.id)}>
       <Image
         source={{ uri: photo.uri }}
         style={{ width: width / numColumns, height: 100 }}
